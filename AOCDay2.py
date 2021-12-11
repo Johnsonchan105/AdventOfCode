@@ -6,7 +6,6 @@ def main():
     h, d = calcMove(movement)
     print(h * d)
     #testH, testD = calcMove(testMovement)
-    #print(testH * testD)
 
 
 def calcMove(m):
