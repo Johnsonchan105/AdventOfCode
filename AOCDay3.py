@@ -5,15 +5,12 @@ def main():
     testError = ["00100", "11110", "10110", "10111", "10101",
                  "01111", "00111", "11100", "10000", "11001", "00010", "01010"]
     gamma, epsilon = getGE(error)
-    O2Num, CO2Num = getOC(testError)
+    O2Num, CO2Num = getOC(error)
     print(gamma * epsilon)
-    print(O2Num)
-    print(CO2Num)
+    print(O2Num * CO2Num)
 
 
 def delUncommon(arr, OneOrZero, loc, com):
-    if(len(arr) == 1):
-        return arr
     report = []
     for i in range(0, len(arr)):
         # if 1 > 0, true
@@ -36,13 +33,21 @@ def delUncommon(arr, OneOrZero, loc, com):
     return report
 
 
+def binToDec(ge):
+    counter = 1
+    sum = 0
+    for i in reversed(range(0, len(ge))):
+        sum += counter if(ge[i] == "1") else 0
+        counter *= 2
+    return sum
+
+
 def getOC(err):
     O2 = err
     CO2 = err
     for i in range(0, len(err[0])):
         one = 0
         zero = 0
-
         tempO = []
         tempC = []
         for j in range(0, len(err)):
@@ -57,7 +62,7 @@ def getOC(err):
         if(len(CO2) != 1):
             tempC = delUncommon(CO2, not OneOrZero, i, False)
             CO2 = tempC
-    return O2, CO2
+    return binToDec(O2[0]), binToDec(CO2[0])
 
 
 def getGE(err):
